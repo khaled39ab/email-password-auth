@@ -2,9 +2,31 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 import './LogIn.css'
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 
 const LogIn = () => {
+    const auth = getAuth();
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogIn = event => {
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(res => {
+            const user = res.user;
+            console.log(user);
+        })
+        .catch(err => console.error(err))
+        event.preventDefault();
+    }
     
+    const handleEmailBlur = (event) => {
+        setEmail(event.target.value);
+    }
+    
+    const handlePasswordBlur = (event) =>{
+        setPassword(event.target.value);
+    }
+
     return (
         <div className='logIn-container p-4 m-4 w-50 mx-auto'>
             <h2 className='text-center text-info'>Please Log In</h2>
