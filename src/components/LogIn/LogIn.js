@@ -7,21 +7,24 @@ import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 const LogIn = () => {
     const auth = getAuth();
     const [validated, setValidated] = useState(false);
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('')
 
     const handleLogIn = event => {
-        
+
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
-            event.preventDefault();
             event.stopPropagation();
             return;
         }
-        if(!/(?=.*[a-zA-Z >>!#$%&? "<<])[a-zA-Z0-9 >>!#$%&?<< ]/.test(password)){
-            return
+        if (!/(?=.{8,})(?=.*[!#$%&@? "])/.test(password)) {
+            setError('Password should minimum 8 character & 1 special character.')
+            return;
         }
         setValidated(true);
+        setError('')
 
         createUserWithEmailAndPassword(auth, email, password)
             .then(res => {
@@ -60,10 +63,14 @@ const LogIn = () => {
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control onBlur={handlePasswordBlur} type="password" placeholder="Password" required />
+                    <Form.Text className="text-muted">
+                        Password should minimum 8 character & 1 special character.
+                    </Form.Text>
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid password.
                     </Form.Control.Feedback>
                 </Form.Group>
+                <p className="text-danger">{error}</p>
                 <Button variant="primary" type="submit">
                     Log in
                 </Button>
