@@ -11,31 +11,6 @@ const LogIn = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
 
-    const handleLogIn = event => {
-
-        event.preventDefault();
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.stopPropagation();
-            return;
-        }
-        if (!/(?=.{8,})(?=.*[!#$%&@? "])/.test(password)) {
-            setError('Password should minimum 8 character & 1 special character.')
-            return;
-        }
-        setValidated(true);
-        setError('')
-
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(res => {
-                const user = res.user;
-                console.log(user);
-            })
-            .catch(err => console.error(err))
-        // setEmail('')
-        // setPassword('')
-        event.preventDefault();
-    }
 
     const handleEmailBlur = (event) => {
         setEmail(event.target.value);
@@ -43,6 +18,34 @@ const LogIn = () => {
 
     const handlePasswordBlur = (event) => {
         setPassword(event.target.value);
+    }
+
+    const handleLogIn = event => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+            return;
+        }
+        if (!/(?=.{8,})(?=.*[!#$%&@? "])/.test(password)) {
+            setError('Password should minimum 8 character with 1 special character.')
+            return;
+        }
+        setValidated(true);
+        setError('');
+
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(res => {
+                const user = res.user;
+                setEmail('')
+                setPassword('')
+                console.log(user);
+            })
+            .catch(err => {
+                setError(err)
+                console.error(err.message)
+            })
+        event.preventDefault();
     }
 
     return (
@@ -64,7 +67,7 @@ const LogIn = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control onBlur={handlePasswordBlur} type="password" placeholder="Password" required />
                     <Form.Text className="text-muted">
-                        Password should minimum 8 character & 1 special character.
+                        Password should minimum 8 character with 1 special character.
                     </Form.Text>
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid password.
