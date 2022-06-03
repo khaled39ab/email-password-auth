@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 import './LogIn.css'
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { Link } from 'react-router-dom';
+import SignUp from '../SignUp/SignUp';
 
 const LogIn = () => {
     const auth = getAuth();
@@ -55,9 +57,6 @@ const LogIn = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control onBlur={handleEmailBlur} type="email" placeholder="Enter email" required />
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid email.
                     </Form.Control.Feedback>
@@ -77,7 +76,13 @@ const LogIn = () => {
                 <Button variant="primary" type="submit">
                     Log in
                 </Button>
+                <hr />
             </Form>
+            {/* <Link to={'/signUp'}> */}
+                <Button className='create-btn mx-auto' variant="info" type="submit">
+                    Create An Account
+                </Button>
+            {/* </Link> */}
         </div>
     );
 };
