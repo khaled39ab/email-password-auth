@@ -3,3 +3,30 @@
     box-shadow: 0px 0px 0px 4px rgba(0,0,0,0.1);
     font-weight: 500;
 }
+
+.reg-title{
+    color: rgb(31, 228, 163);
+}
+
+.btn-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logIn-sec{
+    display: flex;
+    align-items: center;
+}
+
+.logIn-sec p{
+    margin-bottom: 0;
+}
+
+.logIn-sec button{
+    border: 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 5px;
+    color: white;
+    background-color: rgb(45, 205, 45);
+}

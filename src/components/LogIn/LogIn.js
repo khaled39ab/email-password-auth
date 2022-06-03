@@ -5,9 +5,11 @@ import './LogIn.css'
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import SignUp from '../SignUp/SignUp';
+import app from '../../firebase.init';
 
+
+const auth = getAuth(app);
 const LogIn = () => {
-    const auth = getAuth();
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -78,11 +80,13 @@ const LogIn = () => {
                 </Button>
                 <hr />
             </Form>
-            {/* <Link to={'/signUp'}> */}
-                <Button className='create-btn mx-auto' variant="info" type="submit">
-                    Create An Account
-                </Button>
-            {/* </Link> */}
+            <div className='create-btn-sec'>
+                <Link to={'/signUp'}>
+                    <Button>
+                        Create An Account
+                    </Button>
+                </Link>
+            </div>
         </div>
     );
 };

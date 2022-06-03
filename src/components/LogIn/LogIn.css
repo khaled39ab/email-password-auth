@@ -3,8 +3,16 @@
     box-shadow: 0px 0px 0px 4px rgba(0,0,0,0.1);
 }
 
-.create-btn{
+.create-btn-sec{
+    display: flex;
+    justify-content: center;
+}
+
+.create-btn-sec button{
     color: white;
-    background-color: rgb(54, 120, 54);
+    background-color: rgb(66, 152, 66);
     border: 0;
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 7px 15px;
 }

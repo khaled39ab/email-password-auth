@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './SignUp.css'
 
 const SignUp = () => {
@@ -17,6 +18,7 @@ const SignUp = () => {
 
     return (
         <div className='signUp-container w-50 p-4 m-4 mx-auto'>
+            <h1 className='reg-title text-center mb-4'>Want to Registration!</h1>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row className="mb-3">
                     <Form.Group as={Col} md="6" controlId="validationCustom01">
@@ -55,7 +57,26 @@ const SignUp = () => {
                         Please provide a valid password.
                     </Form.Control.Feedback>
                 </Form.Group>
-
+                <Row className="mb-3">
+                    <Form.Group as={Col} md="8" controlId="validationCustom01">
+                        <Form.Label>Phone No:</Form.Label>
+                        <Form.Control
+                            required
+                            type="text"
+                            placeholder="Phone No:"
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="4" controlId="validationCustom02">
+                        <Form.Label>Date of Birth</Form.Label>
+                        <Form.Control
+                            required
+                            type="text"
+                            placeholder="Date of Birth"
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
                 <Row className="mb-3">
                     <Form.Group as={Col} md="4" controlId="validationCustom03">
                         <Form.Label>City</Form.Label>
@@ -87,7 +108,17 @@ const SignUp = () => {
                         feedbackType="invalid"
                     />
                 </Form.Group>
-                <Button type="submit">Sign Up</Button>
+                <div className='btn-container'>
+                    <Button type="submit">Sign Up</Button>
+                    <div className='logIn-sec'>
+                        <p>Already have an account?</p>
+                        <div>
+                            <Link to={'/'}>
+                                <button>Log In</button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
             </Form>
         </div>
     );

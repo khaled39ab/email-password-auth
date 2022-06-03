@@ -6,11 +6,10 @@ import SignUp from "./components/SignUp/SignUp";
 function App() {
   return (
     <div>
-      <LogIn></LogIn>
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<LogIn></LogIn>}></Route>
         <Route path="/signUp" element={<SignUp></SignUp>}></Route>
-      </Routes> */}
+      </Routes>
     </div>
   );
 }
