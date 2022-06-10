@@ -1,10 +1,67 @@
+import { getAuth } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import app from '../../firebase.init';
 import './SignUp.css'
+
+const auth = getAuth(app);
 
 const SignUp = () => {
     const [validated, setValidated] = useState(false);
+    const [username, setUsername] = useState('')
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [city, setCity] = useState('');
+    const [zip, setZip] = useState('');
+    const [country, setCountry] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [submitted, setSubmitted] = useState('')
+
+
+    const handleFirstName = e => {
+        setFirstName(e.target.value)
+    }
+
+    const handleLastName = e => {
+        setLastName(e.target.value)
+    }
+
+    const handleUsername = () => {
+        setUsername(firstName + lastName);
+    }
+
+    const handleEmail = e => {
+        setEmail(e.target.value)
+    }
+
+    const handlePassword = e => {
+        setPassword(e.target.value)
+    }
+
+    const handleContactNumber = e => {
+        setContactNumber(e.target.value)
+    }
+
+    const handleDateOfBirth = e => {
+        setDateOfBirth(e.target.value)
+    }
+
+    const handleCity = e => {
+        setCity(e.target.value)
+    }
+
+    const handleZip = e => {
+        setZip(e.target.value)
+    }
+
+    const handleCountry = e => {
+        setCountry(e.target.value)
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -14,7 +71,12 @@ const SignUp = () => {
             setValidated(true);
             return;
         }
-        console.log('submitted');
+        if (!/(?=.{6,})(?=.*[!#$%&@? "])/.test(password)) {
+            setError('Password should minimum 6 character with 1 special character.')
+            return;
+        }
+
+        setSubmitted('Sign up complete successfully')
     };
 
     return (
@@ -24,7 +86,7 @@ const SignUp = () => {
                 <Row className="mb-3">
                     <Form.Group as={Col} md="6" controlId="validationCustom01">
                         <Form.Label>First name</Form.Label>
-                        <Form.Control
+                        <Form.Control onBlur={handleFirstName}
                             required
                             type="text"
                             placeholder="First name"
@@ -33,7 +95,7 @@ const SignUp = () => {
                     </Form.Group>
                     <Form.Group as={Col} md="6" controlId="validationCustom02">
                         <Form.Label>Last name</Form.Label>
-                        <Form.Control
+                        <Form.Control onBlur={handleLastName}
                             required
                             type="text"
                             placeholder="Last name"
@@ -43,14 +105,14 @@ const SignUp = () => {
                 </Row>
                 <Form.Group as={Col} controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" required />
+                    <Form.Control onBlur={handleEmail} type="email" placeholder="Enter email" required />
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid email.
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" required />
+                    <Form.Control onBlur={handlePassword} type="password" placeholder="Password" required />
                     <Form.Text className="text-muted">
                         Password should minimum 8 character with 1 special character.
                     </Form.Text>
@@ -109,7 +171,12 @@ const SignUp = () => {
                         feedbackType="invalid"
                     />
                 </Form.Group>
-                <div className='btn-container'>
+
+                {
+                    submitted ? <p className='text-success'>{submitted}</p> : <p className='text-danger'>{error}</p>
+                }
+
+                <div className='btn-container mt-4'>
                     <Button type="submit">Sign Up</Button>
                     <div className='logIn-sec'>
                         <p>Already have an account?</p>
