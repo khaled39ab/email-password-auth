@@ -1,4 +1,4 @@
-import { getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -76,6 +76,16 @@ const SignUp = () => {
             return;
         }
 
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(res => {
+            const user = res.user;
+            console.log(user);
+        })
+        .catch(err =>{
+            setError(err.message)
+            console.log(err);
+        })
+
         setSubmitted('Sign up complete successfully')
     };
 
@@ -123,7 +133,7 @@ const SignUp = () => {
                 <Row className="mb-3">
                     <Form.Group as={Col} md="8" controlId="validationCustom03">
                         <Form.Label>Contact Number:</Form.Label>
-                        <Form.Control
+                        <Form.Control onBlur={handleContactNumber}
                             required
                             type="text"
                             placeholder="Phone No"
@@ -132,7 +142,7 @@ const SignUp = () => {
                     </Form.Group>
                     <Form.Group as={Col} md="4" controlId="validationCustom04">
                         <Form.Label>Date of Birth</Form.Label>
-                        <Form.Control
+                        <Form.Control onBlur={handleDateOfBirth}
                             required
                             type="text"
                             placeholder="DD/MM/YYYY"
@@ -143,21 +153,21 @@ const SignUp = () => {
                 <Row className="mb-3">
                     <Form.Group as={Col} md="4" controlId="validationCustom05">
                         <Form.Label>City</Form.Label>
-                        <Form.Control type="text" placeholder="City" required />
+                        <Form.Control onBlur={handleCity} type="text" placeholder="City" required />
                         <Form.Control.Feedback type="invalid">
                             Please provide a valid city.
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="4" controlId="validationCustom06">
                         <Form.Label>Zip</Form.Label>
-                        <Form.Control type="text" placeholder="Zip" required />
+                        <Form.Control onBlur={handleZip} type="text" placeholder="Zip" required />
                         <Form.Control.Feedback type="invalid">
                             Please provide a valid zip.
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="4" controlId="validationCustom07">
                         <Form.Label>Country</Form.Label>
-                        <Form.Control type="text" placeholder="Country" required />
+                        <Form.Control onBlur={handleCountry} type="text" placeholder="Country" required />
                         <Form.Control.Feedback type="invalid">
                             Enter your Country name.
                         </Form.Control.Feedback>
