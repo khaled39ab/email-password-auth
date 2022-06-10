@@ -4,7 +4,6 @@ import { Button, Form } from 'react-bootstrap';
 import './LogIn.css'
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { Link } from 'react-router-dom';
-import SignUp from '../SignUp/SignUp';
 import app from '../../firebase.init';
 
 
@@ -31,8 +30,8 @@ const LogIn = () => {
             event.stopPropagation();
             return;
         }
-        if (!/(?=.{8,})(?=.*[!#$%&@? "])/.test(password)) {
-            setError('Password should minimum 8 character with 1 special character.')
+        if (!/(?=.{6,})(?=.*[!#$%&@? "])/.test(password)) {
+            setError('Password should minimum 6 character with 1 special character.')
             return;
         }
         setValidated(true);
@@ -41,14 +40,15 @@ const LogIn = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(res => {
                 const user = res.user;
-                setEmail('')
-                setPassword('')
+                // setEmail('')
+                // setPassword('')
                 console.log(user);
             })
             .catch(err => {
                 setError(err)
                 console.error(err.message)
             })
+            setEmail('')
         event.preventDefault();
     }
 
@@ -68,7 +68,7 @@ const LogIn = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control onBlur={handlePasswordBlur} type="password" placeholder="Password" required />
                     <Form.Text className="text-muted">
-                        Password should minimum 8 character with 1 special character.
+                        Password should minimum 6 character with 1 special character.
                     </Form.Text>
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid password.
