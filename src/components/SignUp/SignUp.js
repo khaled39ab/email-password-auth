@@ -71,6 +71,16 @@ const SignUp = () => {
         })
     }
 
+    const updateProfile = () =>{
+        updateProfile(auth.currentUser,{
+            displayName: username,
+            phoneNumber: contactNumber
+        })
+        .then(() => {
+            console.log('update username & phone no');
+        })
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -88,14 +98,14 @@ const SignUp = () => {
         .then(res => {
             const user = res.user;
             console.log(user);
-            setEmail('')
+            verifyEmail();
+            updateProfile()
         })
         .catch(err =>{
             setError(err.message)
             console.log(err);
         })
 
-        verifyEmail();
         // setSubmitted('Sign up complete successfully')
     };
 
