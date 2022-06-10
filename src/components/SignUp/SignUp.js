@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -63,6 +63,14 @@ const SignUp = () => {
         setCountry(e.target.value)
     }
 
+    const verifyEmail = () =>{
+        sendEmailVerification(auth.currentUser)
+        .then(() =>{
+            setSubmitted('Email sent. Please verify your email')
+            setEmail('')
+        })
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -80,13 +88,15 @@ const SignUp = () => {
         .then(res => {
             const user = res.user;
             console.log(user);
+            setEmail('')
         })
         .catch(err =>{
             setError(err.message)
             console.log(err);
         })
 
-        setSubmitted('Sign up complete successfully')
+        verifyEmail();
+        // setSubmitted('Sign up complete successfully')
     };
 
     return (
@@ -183,7 +193,7 @@ const SignUp = () => {
                 </Form.Group>
 
                 {
-                    submitted ? <p className='text-success'>{submitted}</p> : <p className='text-danger'>{error}</p>
+                    error ? <p className='text-danger'>{error}</p> : <p className='text-success'>{submitted}</p>
                 }
 
                 <div className='btn-container mt-4'>
