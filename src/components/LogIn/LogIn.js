@@ -43,14 +43,8 @@ const LogIn = () => {
             })
     }
 
-    const passwordResetEmail = e =>{
-        const form = e.currentTarget;
-        if (form.checkValidity() === false) {
-            e.stopPropagation();
-            setValidated(true);
-            return;
-        }
-
+    const passwordResetEmail = () =>{
+        
         sendPasswordResetEmail(auth, email)
         .then(() =>{
             setSubmitted('Password reset email sent')
@@ -60,6 +54,7 @@ const LogIn = () => {
             console.log(err);
         })
     }
+
     return (
         <div className='logIn-container p-4 m-4 w-50 mx-auto'>
             <h2 className='text-center text-info'>Please Log In</h2>
