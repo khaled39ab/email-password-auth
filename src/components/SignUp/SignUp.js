@@ -63,22 +63,22 @@ const SignUp = () => {
         setCountry(e.target.value)
     }
 
-    const verifyEmail = () =>{
+    const verifyEmail = () => {
         sendEmailVerification(auth.currentUser)
-        .then(() =>{
-            setSubmitted('Email sent. Please verify your email')
-            setEmail('')
-        })
+            .then(() => {
+                setSubmitted('Email sent. Please verify your email')
+                setEmail('')
+            })
     }
 
-    const updateProfile = () =>{
-        updateProfile(auth.currentUser,{
+    const updateProfile = () => {
+        updateProfile(auth.currentUser, {
             displayName: username,
             phoneNumber: contactNumber
         })
-        .then(() => {
-            console.log('update username & phone no');
-        })
+            .then(() => {
+                console.log('update username & phone no');
+            })
     }
 
     const handleSubmit = (event) => {
@@ -95,16 +95,16 @@ const SignUp = () => {
         }
 
         createUserWithEmailAndPassword(auth, email, password)
-        .then(res => {
-            const user = res.user;
-            console.log(user);
-            verifyEmail();
-            updateProfile()
-        })
-        .catch(err =>{
-            setError(err.message)
-            console.log(err);
-        })
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+                verifyEmail();
+                updateProfile()
+            })
+            .catch(err => {
+                setError(err.message)
+                console.log(err);
+            })
 
         // setSubmitted('Sign up complete successfully')
     };
@@ -144,7 +144,7 @@ const SignUp = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control onBlur={handlePassword} type="password" placeholder="Password" required />
                     <Form.Text className="text-muted">
-                        Password should minimum 8 character with 1 special character.
+                        Password should minimum 6 character with 1 special character.
                     </Form.Text>
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid password.
