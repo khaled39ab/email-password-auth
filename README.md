@@ -1,1 +1,1 @@
-# Live site: https://storied-taiyaki-66c294.netlify.app/
+# Live site: https://email-password-authentication-khaled39ab.netlify.app/
